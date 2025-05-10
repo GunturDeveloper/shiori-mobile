@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shiori Dashboard</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./style/styles.css" />
+
+    <!-- Model Viewer -->
+    <!-- <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script> -->
+    <script type="module" src="./script/model-viewer.min.js"></script>
+
+    <!-- Iconify & Tailwind -->
+    <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"></script>
+    <script id="Tailwind" src="./script/3.4.16.js"></script>
+
+    <!-- Custom Script -->
+    <script src="./script/base.js" defer></script>
+  </head>
+
+  <body class="bg-gray-100 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white border-b fixed z-50 w-full p-4 flex justify-between items-center">
+      <h1 class="text-lg text-gray-800">
+        <span class="underline decoration-4 decoration-red-500">Shi</span>ori Mobile
+      </h1>
+      <img src="./img/profile.jpg" alt="profile" class="w-12 h-12 shadow-sm rounded-full object-fit" />
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-20 px-4 mb-24 flex flex-col items-center space-y-6">
+
+      <!-- Model Viewer Section -->
+      <div class="relative w-full" style="height: 500px;">
+        <model-viewer
+          src="./models/house_palm_plant.glb"
+          camera-controls
+          auto-rotate
+          shadow-intensity="1"
+          shadow-softness="1"
+          exposure="1"
+          disable-zoom
+          environment-image="neutral"
+          style="width: 100%; height: 100%;"
+        ></model-viewer>
+        <div id="yi" class="absolute top-4 left-4 bg-white bg-opacity-80 rounded-lg border text-black px-4 py-2 shadow-lg">
+          <h1>Tanaman Palm</h1>
+        </div>
+      </div>
+
+      <!-- Greeting and Temperature -->
+      <div class="p-4 bg-white border w-full rounded-3xl">
+        <div class="flex items-center space-x-2">
+          <iconify-icon id="icon-greet" class="text-2xl text-red-500" icon=""></iconify-icon>
+          <h1 id="greet" class="text-2xl">Selamat {waktu} Guntur!</h1>
+        </div>
+        <div id="temperature-container" class="text-center mt-16">
+          <h1 id="temperature-text" class="text-4xl"></h1>
+          <p class="text-md">Suhu di lingkungan kamu dan sekitarnya.</p>
+          <div class="bg-gray-200 mt-4 rounded-3xl w-full h-6 overflow-hidden">
+            <div id="temperature-bar" class="bg-red-500 h-full rounded-3xl transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Saran Pintar -->
+      <div class="p-4 bg-white border w-full rounded-3xl">
+        <div class="flex items-center space-x-2">
+          <iconify-icon class="text-2xl text-orange-500" icon="ph:sparkle-duotone"></iconify-icon>
+          <h1 class="text-2xl">Saran Pintar</h1>
+        </div>
+        <p id="saranteks" class="text-md mt-2"></p>
+      </div>
+
+      <!-- Kelembaban Lingkungan -->
+      <div class="p-4 border bg-white rounded-3xl w-full">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center">
+            <iconify-icon icon="ph:drop-duotone" class="text-2xl text-blue-500 mr-2"></iconify-icon>
+            <h1 class="font-bold">Kelembaban Lingkungan</h1>
+          </div>
+          <p id="ling"></p>
+        </div>
+      </div>
+
+      <!-- Kelembaban Tanaman -->
+      <div class="p-4 border bg-white rounded-3xl w-full">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center">
+            <iconify-icon icon="ph:plant-duotone" class="text-2xl text-green-500 mr-2"></iconify-icon>
+            <h1 class="font-bold">Kelembaban Tanaman</h1>
+          </div>
+          <p id="tan"></p>
+        </div>
+      </div>
+
+      <!-- Lokasi -->
+      <div class="p-4 border bg-white rounded-3xl w-full">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center">
+            <iconify-icon icon="ph:map-pin-duotone" class="text-2xl text-red-500 mr-2"></iconify-icon>
+            <h1 class="font-bold">Lokasi</h1>
+          </div>
+          <div class="grid">
+            <p id="lat"></p>
+            <p id="long"></p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Bar -->
+    <div id="bar" class="z-50 shadow-md fixed bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-3 border rounded-full flex items-center gap-4">
+      <iconify-icon id="ai" icon="ph:brain-duotone" class="hidden text-3xl text-red-500 mr-2"></iconify-icon>
+      <iconify-icon id="home" icon="ph:house-duotone" class="text-3xl text-orange-500 mr-2"></iconify-icon>
+      <iconify-icon id="draweropen" icon="ph:stack-simple-duotone" class="text-3xl text-purple-500"></iconify-icon>
+    </div>
+
+    <!-- Bottom Drawer -->
+    <div id="bottomdrawer" class="fixed bottom-0 left-0 w-full bg-white border-t rounded-t-2xl p-4 transform translate-y-full transition-transform duration-300 z-[62]">
+      <div class="flex justify-between items-center mb-2">
+        <h2 class="text-lg font-bold">Akses Cepat</h2>
+        <button id="drawerclose" class="text-red-500 text-2xl">&times;</button>
+      </div>
+      <button id="astar" class="p-4 bg-red-500 text-white w-full rounded-md mt-12 hover:bg-red-800 transition">Pusat Kontrol</button>
+    </div>
+
+    <!-- Backdrop -->
+    <div id="drawerbackdrop" class="fixed inset-0 bg-black/30 z-[51] backdrop-blur-md transition hidden"></div>
+
+    <!-- Firebase Script -->
+    <script type="module" src="./script/firebase.js"></script>
+
+    <!-- Logic Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const astar = document.getElementById('astar');
+        const homes = document.getElementById("home");
+        const drawer = document.getElementById("bottomdrawer");
+        const openBtn = document.getElementById("draweropen");
+        const closeBtn = document.getElementById("drawerclose");
+        const backdrop = document.getElementById("drawerbackdrop");
+
+        const openDrawer = () => {
+          drawer.classList.remove("translate-y-full");
+          backdrop.classList.remove("hidden");
+        };
+
+        const closeDrawer = () => {
+          drawer.classList.add("translate-y-full");
+          backdrop.classList.add("hidden");
+        };
+
+        const backhome = () => {
+          window.location.href = "index.html";
+        };
+
+        const control = () => {
+          window.location.href = "control.html";
+        };
+
+        homes.addEventListener("click", backhome);
+        astar.addEventListener("click", control);
+        openBtn.addEventListener("click", openDrawer);
+        closeBtn.addEventListener("click", closeDrawer);
+        backdrop.addEventListener("click", closeDrawer);
+
+        // Ambil lokasi
+        navigator.geolocation.getCurrentPosition(pos => {
+          const { latitude, longitude } = pos.coords;
+          document.getElementById('lat').textContent = "Latitude : " + latitude;
+          document.getElementById('long').textContent = "Longitude : " + longitude;
+        });
+      });
+    </script>
+  </body>
+</html>

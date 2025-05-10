@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shiori Dashboard</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="./style/styles.css" />
+
+    <!-- Iconify & Tailwind -->
+    <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"></script>
+    <script id="Tailwind" src="./script/3.4.16.js"></script>
+    
+    <!-- Custom Script -->
+    <script src="./script/base.js" defer></script>
+  </head>
+
+  <body class="bg-gray-100 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white border-b fixed  w-full p-4 flex justify-between items-center">
+      <h1 class="text-lg text-gray-800">
+        <span class="underline decoration-4 decoration-red-500">Shi</span>ori Mobile
+      </h1>
+      <img src="./img/profile.jpg" alt="profile" class="w-12 h-12 shadow-sm rounded-full object-fit" />
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-24 px-4 flex flex-col items-center space-y-6">
+        <div class="bg-white border  rounded-3xl mt-12 px-4 py-5 w-full text-gray-800">
+          <div class="flex justify-between items-center mb-12">
+            <h4 class="text-2xl font-bold">Pusat Kontrol</h4>
+            <iconify-icon icon="ph:bell-duotone" class="text-2xl text-gray-600"></iconify-icon>
+          </div>
+          <p class="text-center text-lg tracking-wider text-gray-500">Persentase Untuk Menyiram</p>
+          <h2 class="text-3xl text-center font-bold my-2">100%</h2>
+          <div class="flex gap-4 mt-12">
+            <button id="start" class="flex-1 bg-green-500 text-white py-2 rounded-full font-semibold hover:bg-green-800 transition">Start</button>
+            <button id="stop" class="flex-1 bg-red-500 text-white py-2 rounded-full font-semibold hover:bg-red-800 transition">Stop</button>
+          </div>
+        </div>
+        
+      
+      
+    </main>
+    <div id="bar" class="z-50 shadow-md fixed bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-3 border rounded-full flex items-center gap-4">
+       
+       <iconify-icon id="home" icon="ph:house-duotone" class="text-3xl text-orange-500 mr-2"></iconify-icon>
+       
+        <iconify-icon id="draweropen" icon="ph:stack-simple-duotone" class="text-3xl text-purple-500"></iconify-icon>
+    </div>
+    
+    
+    
+    
+    <div id="bottomdrawer" class="fixed bottom-0 left-0 w-full bg-white border-t rounded-t-2xl p-4 transform translate-y-full transition-transform duration-300 z-50">
+  <div class="flex justify-between items-center mb-2">
+    <h2 class="text-lg font-bold">Akses Cepat</h2>
+    <button id="drawerclose" class="text-red-500 text-2xl">&times;</button>
+  </div>
+  <button id="asmr" class="p-4 bg-red-500 text-white w-full rounded-md mt-12 hover:bg-red-800 transition">Dashboard</button>
+   
+ 
+</div>
+          
+    <div id="drawerbackdrop" class="fixed inset-0 bg-black/30 z-30 backdrop-blur-md transition hidden"></div>
+    
+    
+<script>
+ document.addEventListener("DOMContentLoaded", () => {
+  const temp = 30;
+  const kelembabanLingkungan = 60;
+  const kelembabanTanaman = 40;
+  
+  const astar = document.getElementById('asmr');
+  const homes = document.getElementById("home");
+  const drawer = document.getElementById("bottomdrawer");
+  const openBtn = document.getElementById("draweropen");
+  const closeBtn = document.getElementById("drawerclose");
+  const backdrop = document.getElementById("drawerbackdrop");
+
+  
+
+  const openDrawer = () => {
+    drawer.classList.remove("translate-y-full");
+    backdrop.classList.remove("hidden");
+  };
+
+  const closeDrawer = () => {
+    drawer.classList.add("translate-y-full");
+    backdrop.classList.add("hidden");
+  };
+  
+  const backhome = () => {
+    window.location.href="index.html"
+  };
+  
+  const control = () => {
+    window.location.href="home.html"
+  };
+  
+  homes.addEventListener("click", backhome);
+  astar.addEventListener("click", control);
+  openBtn.addEventListener("click", openDrawer);
+  closeBtn.addEventListener("click", closeDrawer);
+  backdrop.addEventListener("click", closeDrawer);
+  
+  });
+  </script>
+
+
+
+
+
+  </body>
+</html>
